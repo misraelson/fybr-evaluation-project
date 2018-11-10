@@ -32,7 +32,8 @@ class Sidebar extends Component {
       ]
     */
 
-    const items = [this.props.projects[0].name];
+    // const items = [this.props.projects[0].name];
+    const items = [...this.props.projects];
 
     return (
       <List
