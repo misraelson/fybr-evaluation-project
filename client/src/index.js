@@ -13,4 +13,5 @@ render(
   <Provider store={store}>
     <ProjectsIndex />
   </Provider>
-, document.getElementById('application'));
+  , document.getElementById('application')
+);

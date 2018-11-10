@@ -4,6 +4,9 @@ import styles from './List.scss';
 
 export default function List(props) {
   return (
-    <div></div>
+    <div>
+      <h1>THIS THING</h1>
+      {/* <li>{this.props.items}</li> */}
+    </div>
   );
 }
