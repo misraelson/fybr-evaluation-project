@@ -6,7 +6,7 @@ export default function List(props) {
   return (
     <div>
       <h1>THIS THING</h1>
-      {/* <li>{this.props.items}</li> */}
+      {props.items[0]}
     </div>
   );
 }

@@ -32,10 +32,13 @@ class Sidebar extends Component {
       ]
     */
 
-    const items = [this.props];
+    const items = [this.props.projects[0].name];
 
     return (
-      <List items={ items } onClickSubitem={ this.props.centerMapOnSite } />
+      <List
+        items={ items }
+        onClickSubitem={ this.props.centerMapOnSite }
+      />
     );
   }
 }
