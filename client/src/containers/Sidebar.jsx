@@ -31,8 +31,7 @@ class Sidebar extends Component {
         }
       ]
     */
-
-    // const items = [this.props.projects[0].name];
+    // the props in Sidebar comes from Redux and contains the Sites/Projects object-array
     const items = [...this.props.projects];
 
     return (
@@ -47,7 +46,7 @@ class Sidebar extends Component {
 function mapStateToProps(state) {
   return {
     projects: getProjects(state),
-    sites: getSites(state)
+    sites: getSites(state),
   };
 }
 
