@@ -21,7 +21,7 @@ export default class List extends Component {
       if(item.name === name) {
         item.sites.map( (site, id) => {
           console.log("this is site:", site)
-          return<h3 key={id}> {site} </h3>
+          return site
         })
       }
       // console.log(sites.sites)
@@ -35,7 +35,13 @@ export default class List extends Component {
         {this.props.items.map( (item, id) => {
           // console.log(item.name);
           return (
-            <h1 key={id} onClick={()=> this.showSubitem(item.name)}>{item.name}</h1>
+            <div>
+              <h1 key={id} onClick={()=> this.showSubitem(item.name)}>{item.name}</h1>
+
+              {item.sites.map( (site, id ) => {
+                return(<h3 key={id}> {site} </h3>)
+              })}
+            </div>
           );
         })};
       </div>
