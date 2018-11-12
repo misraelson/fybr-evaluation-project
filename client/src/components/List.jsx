@@ -34,7 +34,7 @@ export default class List extends Component {
             <div>
               <h1 key={id} onClick={()=> this.showSubitem(item.name)}>{item.name}</h1>
                 {item.sites.map( (site, siteId ) => {
-                  {if(this.state.isOpen === true) {
+                  {if(this.state.isOpen === true && this.state.name === item.name) {
                     return(<h3 key={siteId}> {site} </h3>)
                   }}
                 })}
