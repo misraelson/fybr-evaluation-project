@@ -18,7 +18,7 @@ export default class List extends Component {
 
   showSubitem = (name) => {
     this.setState({
-      isOpen: true,
+      isOpen: !this.state.isOpen,
       name: name
     })
   }
