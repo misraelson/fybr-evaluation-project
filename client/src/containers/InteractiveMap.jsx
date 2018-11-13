@@ -14,6 +14,10 @@ class InteractiveMap extends Component {
     // need to connect redux store so that the trees in props are a nested object that can be rendered
     const { trees } = this.props.currentSite;
 
+    // const treeFeature = turf.circle([[
+    //
+    // ]])
+
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
       [bounding.right, bounding.top],
