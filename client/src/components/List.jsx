@@ -12,7 +12,7 @@ export default class List extends Component {
 
 
   showSubitem = (name) => {
-    let isOpen = false;
+    let isOpen = this.state.openSections[name];
     // let name = name;
     console.log(isOpen)
     this.setState({
