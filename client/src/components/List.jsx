@@ -5,28 +5,20 @@ import styles from './List.scss';
 export default class List extends Component {
 
   state = {
-    // isOpen: false,
-    name: "",
     openSections: { },
   }
 
 
   showSubitem = (name) => {
     let isOpen = this.state.openSections[name];
-    // let name = name;
-    console.log(isOpen)
     this.setState({
-      // isOpen: !this.state.isOpen,
-      name: name,
       openSections: {
         ...this.state.openSections,
         [name]: !isOpen,
       }
     })
-    console.log(this.state.openSections)
   }
   render() {
-    // let openSections = {};
     return (
       <div>
         {this.props.items.map( (item, id) => {
