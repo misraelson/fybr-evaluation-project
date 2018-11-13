@@ -10,6 +10,9 @@ import { centerMapOnSite, mapSetCenter, mapSetZoom } from '../model/map';
 class InteractiveMap extends Component {
   render() {
     const { bounding } = this.props.currentSite;
+    // these are just the tree id's. each id is mapped to an object with lat/long, height, type etc.
+    // need to connect redux store so that the trees in props are a nested object that can be rendered
+    const { trees } = this.props.currentSite;
 
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
