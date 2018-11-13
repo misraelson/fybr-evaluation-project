@@ -5,26 +5,28 @@ import styles from './List.scss';
 export default class List extends Component {
 
   state = {
-    isOpen: false,
+    // isOpen: false,
     name: "",
+    openSections: { },
   }
 
-  // projectNames = () => {
-  //   this.props.items.map( (item, id) => {
-  //     console.log(item.name)
-  //     return <h1 key={id}  onClick={this.showSubitem(item.name)}> {item.name} </h1>;
-  //   })
-  // }
 
   showSubitem = (name) => {
+    let isOpen = false;
+    // let name = name;
+    console.log(isOpen)
     this.setState({
-      isOpen: !this.state.isOpen,
-      name: name
+      // isOpen: !this.state.isOpen,
+      name: name,
+      openSections: {
+        ...this.state.openSections,
+        [name]: !isOpen,
+      }
     })
+    console.log(this.state.openSections)
   }
   render() {
-
-      // console.log(item.name)
+    // let openSections = {};
     return (
       <div>
         {this.props.items.map( (item, id) => {
@@ -34,7 +36,7 @@ export default class List extends Component {
             <div>
               <h1 key={id} onClick={()=> this.showSubitem(item.name)}>{item.name}</h1>
                 {item.sites.map( (site, siteId ) => {
-                  {if(this.state.isOpen === true && this.state.name === item.name) {
+                  {if(this.state.openSections[item.name] === true && this.state.name === item.name) {
                     return(<h3 key={siteId}> {site} </h3>)
                   }}
                 })}
