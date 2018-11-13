@@ -10,7 +10,7 @@ import { centerMapOnSite, mapSetCenter, mapSetZoom } from '../model/map';
 class InteractiveMap extends Component {
   render() {
     const { bounding } = this.props.currentSite;
-    
+
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
       [bounding.right, bounding.top],
@@ -29,7 +29,17 @@ class InteractiveMap extends Component {
           type="line"
           paint={{
             'line-width': 2,
-            'line-color': '#fff'
+            'line-color': '#fff',
+            'line-opacity': 1,
+          }}
+          source="bounding-box"
+        />
+        <Layer
+          id="bounding-fill"
+          type="fill"
+          paint={{
+            'fill-color': 'grey',
+            'fill-opacity': 0.5,
           }}
           source="bounding-box"
         />
