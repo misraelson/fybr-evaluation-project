@@ -33,6 +33,7 @@ export function fetchTrees() {
     axios
     .get('/api/trees')
     .then((response) => {
+      console.log(response);
       dispatch(fetchTreesCompleted(response.data));
     })
     .catch(error => {

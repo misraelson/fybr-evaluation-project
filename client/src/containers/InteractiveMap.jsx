@@ -26,7 +26,7 @@ class InteractiveMap extends Component {
     let radius =  2;
     let options = {name: 'Circle'};
 
-    const treeFeature = turf.point(
+    let treeFeature = turf.point(
       coordinates, options );
 
     console.log(boundingFeature, treeFeature);
@@ -45,10 +45,10 @@ class InteractiveMap extends Component {
           id="treeCircle"
           type="circle"
           paint={{
-            'circle-radius': 10,
+            'circle-radius': 5,
             'circle-color': 'white',
             'circle-stroke-color': 'black',
-            // 'circle-opacity': 0.2,
+            'circle-opacity': 0.8,
           }}
           source="tree-objects"
         />
