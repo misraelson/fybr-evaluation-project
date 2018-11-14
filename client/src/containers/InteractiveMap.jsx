@@ -14,10 +14,6 @@ class InteractiveMap extends Component {
     // need to connect redux store so that the trees in props are a nested object that can be rendered
     const { trees } = this.props.currentSite;
 
-    // const treeFeature = turf.circle([[
-    //
-    // ]])
-
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
       [bounding.right, bounding.top],
@@ -26,11 +22,36 @@ class InteractiveMap extends Component {
       [bounding.left, bounding.top]
     ]], { name: 'Bounding Area' });
 
+    let coordinates = [-123.18727286009813, 49.38710261999775]
+    let radius =  2;
+    let options = {name: 'Circle'};
+
+    const treeFeature = turf.point(
+      coordinates, options );
+
+    console.log(boundingFeature, treeFeature);
+
+    let treeCoordinates = {
+
+    }
+
     return (
       <Map { ...this.props }>
         <Sources>
           <GeoJSON id="bounding-box" data={ boundingFeature } />
+          <GeoJSON id="tree-objects" data={ treeFeature } />
         </Sources>
+        <Layer
+          id="treeCircle"
+          type="circle"
+          paint={{
+            'circle-radius': 10,
+            'circle-color': 'white',
+            'circle-stroke-color': 'black',
+            // 'circle-opacity': 0.2,
+          }}
+          source="tree-objects"
+        />
         <Layer
           id="bounding-box"
           type="line"
@@ -50,6 +71,7 @@ class InteractiveMap extends Component {
           }}
           source="bounding-box"
         />
+
       </Map>
     );
   }
