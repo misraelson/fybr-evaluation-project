@@ -1,4 +1,12 @@
 
+![](FYBR_TEST_V1.gif)
+
+## Progress Thus Far
+
+1. Implemented the first feature, React Component, that is an accordian menu where multiple items can be open at the same time. When the sub-menu items are clicked, the map recentre's to the new site location
+
+2. Part way throught the second feature. Created a new layer that provides partial opacity layer to highlight the site. Cracking into figuring out how to return the trees from the api and map them to the tree ID props
+
 
 ## Setup
 
