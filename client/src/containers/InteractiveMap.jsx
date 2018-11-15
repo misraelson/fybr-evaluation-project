@@ -14,13 +14,15 @@ class InteractiveMap extends Component {
 
     let treeMap = () => {
       trees.map( (tree) => {
-        console.log({...allTrees[tree]});
-        return {...allTrees[tree]}
+        let treeObj = {...allTrees[tree]}
+        console.log(treeObj.lat);
+        return treeObj.lat
       })
     }
     // console.log(trees)
 
     const allTrees = {...this.props.trees};
+    let { height, lat, long, type } = allTrees
     // console.log({...allTrees[1975].lat});
 
 
