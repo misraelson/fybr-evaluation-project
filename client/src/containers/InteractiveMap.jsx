@@ -10,9 +10,19 @@ import { centerMapOnSite, mapSetCenter, mapSetZoom } from '../model/map';
 class InteractiveMap extends Component {
   render() {
     const { bounding } = this.props.currentSite;
-    // these are just the tree id's. each id is mapped to an object with lat/long, height, type etc.
-    // need to connect redux store so that the trees in props are a nested object that can be rendered
-    const { trees } = this.props.currentSite;
+    const { trees } = this.props.currentSite
+
+    let treeMap = () => {
+      trees.map( (tree) => {
+        console.log({...allTrees[tree]});
+        return {...allTrees[tree]}
+      })
+    }
+    // console.log(trees)
+
+    const allTrees = {...this.props.trees};
+    // console.log({...allTrees[1975].lat});
+
 
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
@@ -29,49 +39,51 @@ class InteractiveMap extends Component {
     let treeFeature = turf.point(
       coordinates, options );
 
-    let treeCoordinates = {
+    treeMap();
 
-    }
+    // let treeMap = this.props.trees.map( tree => {
 
-    return (
-      <Map { ...this.props }>
-        <Sources>
-          <GeoJSON id="bounding-box" data={ boundingFeature } />
-          <GeoJSON id="tree-objects" data={ treeFeature } />
-        </Sources>
-        <Layer
-          id="treeCircle"
-          type="circle"
-          paint={{
-            'circle-radius': 5,
-            'circle-color': 'white',
-            'circle-stroke-color': 'black',
-            'circle-opacity': 0.8,
-          }}
-          source="tree-objects"
-        />
-        <Layer
-          id="bounding-box"
-          type="line"
-          paint={{
-            'line-width': 2,
-            'line-color': '#fff',
-            'line-opacity': 1,
-          }}
-          source="bounding-box"
-        />
-        <Layer
-          id="bounding-fill"
-          type="fill"
-          paint={{
-            'fill-color': 'grey',
-            'fill-opacity': 0.5,
-          }}
-          source="bounding-box"
-        />
+      return (
+        <Map { ...this.props }>
+          <Sources>
+            <GeoJSON id="bounding-box" data={ boundingFeature } />
+            <GeoJSON id="tree-objects" data={ treeFeature } />
+            {/* <GeoJSON id="tree-objects" data={ [tree.longitude, tree.latitude] } /> */}
+          </Sources>
+          <Layer
+            id="treeCircle"
+            type="circle"
+            paint={{
+              'circle-radius': 5,
+              'circle-color': 'white',
+              'circle-stroke-color': 'black',
+              'circle-opacity': 0.8,
+            }}
+            source="tree-objects"
+          />
+          <Layer
+            id="bounding-box"
+            type="line"
+            paint={{
+              'line-width': 2,
+              'line-color': '#fff',
+              'line-opacity': 1,
+            }}
+            source="bounding-box"
+          />
+          <Layer
+            id="bounding-fill"
+            type="fill"
+            paint={{
+              'fill-color': 'grey',
+              'fill-opacity': 0.5,
+            }}
+            source="bounding-box"
+          />
 
-      </Map>
-    );
+        </Map>
+      );
+    // })
   }
 }
 
