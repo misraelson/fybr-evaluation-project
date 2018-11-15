@@ -1,6 +1,5 @@
 import * as turf from '@turf/turf';
 import { sitesSetCurrent } from './sites';
-import { treesSetCurrent } from './trees';
 
 export const MAP_SET_CENTER = 'MAP_SET_CENTER';
 export const MAP_SET_ZOOM = 'MAP_SET_ZOOM';
@@ -29,7 +28,6 @@ export function centerMapOnSite(id) {
     ]);
 
     dispatch(sitesSetCurrent(id));
-    dispatch(treesSetCurrent(id));
     dispatch(mapSetCenter(turf.center(features).geometry.coordinates));
     dispatch(mapSetZoom(initial.zoom));
   };

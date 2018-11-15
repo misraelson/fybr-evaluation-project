@@ -29,8 +29,6 @@ class InteractiveMap extends Component {
     let treeFeature = turf.point(
       coordinates, options );
 
-    console.log(boundingFeature, treeFeature);
-
     let treeCoordinates = {
 
     }
@@ -80,6 +78,7 @@ class InteractiveMap extends Component {
 function mapStateToProps(state) {
   return {
     currentSite: state.sites.byId[state.sites.selected],
+    trees: state.trees.byId,
     center: state.map.center,
     zoom: state.map.zoom
   };

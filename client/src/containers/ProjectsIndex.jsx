@@ -37,7 +37,7 @@ function mapStateToProps(state) {
   return {
     loaded: state.projects.status === FETCH_PROJECTS_COMPLETED &&
             state.sites.status === FETCH_SITES_COMPLETED &&
-            // state.trees.status === FETCH_TREES_COMPLETED &&
+            state.trees.status === FETCH_TREES_COMPLETED &&
             state.sites.selected !== null
   };
 }
