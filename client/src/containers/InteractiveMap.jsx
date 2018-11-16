@@ -63,7 +63,7 @@ class InteractiveMap extends Component {
           <Sources>
             <GeoJSON id="bounding-box" data={ boundingFeature } />
             <GeoJSON id="tree-object" data={ treeFeature } />
-            <GeoJSON id="tree-object" data={ treeFeature2 } />
+            <GeoJSON id="tree-object2" data={ treeFeature2 } />
           </Sources>
         <Layer
           id="treeCircle"
@@ -75,6 +75,17 @@ class InteractiveMap extends Component {
             'circle-opacity': 0.8,
           }}
           source="tree-object"
+        />
+        <Layer
+          id="treeCircle2"
+          type="circle"
+          paint={{
+            'circle-radius': 5,
+            'circle-color': 'white',
+            'circle-stroke-color': 'black',
+            'circle-opacity': 0.8,
+          }}
+          source="tree-object2"
         />
         { treeMaker() }
         <Layer
