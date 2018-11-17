@@ -36,10 +36,10 @@ class InteractiveMap extends Component {
         let options = {name: 'Circle'};
         let treeCircle = turf.point(newCoordinates, options);
         // console.log(treeCircle)
-        let geoJSON =  <Sources> <GeoJSON key={index} id={index} data={ treeCircle } /> </Sources>
+        let geoJSON =  <Sources> <GeoJSON key={ index } id={ index.toString() } data={ treeCircle } /> </Sources>
         geoJsonSources.push(geoJSON)
 
-        let treeLayer =   <Layer key={index} id={index} type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
+        let treeLayer =   <Layer key={index} id={ index.toString() } type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
           source={geoJSON.props.children[1].props.id}
         />
         treeLayers.push(treeLayer)
