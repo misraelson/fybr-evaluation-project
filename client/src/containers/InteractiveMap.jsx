@@ -14,6 +14,10 @@ class InteractiveMap extends Component {
     const allTrees = {...this.props.trees};
     // let { height, lat, long, type } = allTrees
     let coordinatesArray = []
+    let geoJsonSources = []
+    let treeLayers = []
+
+    console.log(treeLayers)
 
     let treeMap = () => {
       trees.map( (tree) => {
@@ -46,17 +50,27 @@ class InteractiveMap extends Component {
         let options = {name: 'Circle'};
         let treeCircle = turf.point(newCoordinates, options);
         // console.log(treeCircle)
-        let geoJSON =  <GeoJSON id="tree-objects" data={ treeCircle } />
+        let geoJSON =  <Sources> <GeoJSON id={index} data={ treeCircle } /> </Sources>
+        geoJsonSources.push(geoJSON)
 
-        console.log(geoJSON.props.id)
+        let treeLayer =   <Layer id={index} type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
+            source={geoJSON.props.children[1].props.id}
+          />
+        treeLayers.push(treeLayer)
 
 
-        // return geoJSON.props.id
-        return <Layer key={index} id="treeCircle" type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}} source={geoJSON.props.id} />
+        // console.log(geoJSON.props.children[1].props.id)
+        // return
+        //   <Layer
+        //     id={index}
+        //     type="circle"
+        //     paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
+        //     source={geoJSON.props.children[1].props.id}
+        //   />
       })
     };
-    console.log(treeMaker());
     treeMap();
+    treeMaker();
 
     return (
       <Map { ...this.props }>
@@ -64,6 +78,7 @@ class InteractiveMap extends Component {
             <GeoJSON id="bounding-box" data={ boundingFeature } />
             <GeoJSON id="tree-object" data={ treeFeature } />
             <GeoJSON id="tree-object2" data={ treeFeature2 } />
+            {/* { {...geoJsonSources} } */}
           </Sources>
         <Layer
           id="treeCircle"
@@ -87,7 +102,6 @@ class InteractiveMap extends Component {
           }}
           source="tree-object2"
         />
-        { treeMaker() }
         <Layer
           id="bounding-box"
           type="line"
