@@ -18,6 +18,7 @@ class InteractiveMap extends Component {
     let treeLayers = []
 
     console.log(treeLayers)
+    // console.log(geoJsonSources)
 
     let treeMap = () => {
       trees.map( (tree) => {
@@ -27,6 +28,23 @@ class InteractiveMap extends Component {
         // console.log(coordinatesArray)
       })
     }
+
+    let treeMaker = () => {
+      coordinatesArray.forEach( (latlong, index) => {
+        // console.log([parseFloat(latlong[0]), parseFloat(latlong[1])])
+        let newCoordinates = [parseFloat(latlong[0]), parseFloat(latlong[1])]
+        let options = {name: 'Circle'};
+        let treeCircle = turf.point(newCoordinates, options);
+        // console.log(treeCircle)
+        let geoJSON =  <Sources> <GeoJSON key={index} id={index} data={ treeCircle } /> </Sources>
+        geoJsonSources.push(geoJSON)
+
+        let treeLayer =   <Layer key={index} id={index} type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
+          source={geoJSON.props.children[1].props.id}
+        />
+        treeLayers.push(treeLayer)
+      })
+    };
 
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
@@ -43,32 +61,6 @@ class InteractiveMap extends Component {
     let treeFeature = turf.point( coordinates );
     let treeFeature2 = turf.point( coordinates2 );
 
-    let treeMaker = () => {
-      coordinatesArray.forEach( (latlong, index) => {
-        // console.log([parseFloat(latlong[0]), parseFloat(latlong[1])])
-        let newCoordinates = [parseFloat(latlong[0]), parseFloat(latlong[1])]
-        let options = {name: 'Circle'};
-        let treeCircle = turf.point(newCoordinates, options);
-        // console.log(treeCircle)
-        let geoJSON =  <Sources> <GeoJSON id={index} data={ treeCircle } /> </Sources>
-        geoJsonSources.push(geoJSON)
-
-        let treeLayer =   <Layer id={index} type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
-            source={geoJSON.props.children[1].props.id}
-          />
-        treeLayers.push(treeLayer)
-
-
-        // console.log(geoJSON.props.children[1].props.id)
-        // return
-        //   <Layer
-        //     id={index}
-        //     type="circle"
-        //     paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
-        //     source={geoJSON.props.children[1].props.id}
-        //   />
-      })
-    };
     treeMap();
     treeMaker();
 
@@ -80,6 +72,13 @@ class InteractiveMap extends Component {
             <GeoJSON id="tree-object2" data={ treeFeature2 } />
             {/* { {...geoJsonSources} } */}
           </Sources>
+          { geoJsonSources.map( (geojsontree, index) => {
+            // console.log(geojsontree.props.children[1])
+            return [geojsontree.props.children[1]]
+          })}
+          { treeLayers.map( (tree) => {
+            return [tree]
+          })}
         <Layer
           id="treeCircle"
           type="circle"
