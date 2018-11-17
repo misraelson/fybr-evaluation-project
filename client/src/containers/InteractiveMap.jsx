@@ -17,25 +17,19 @@ class InteractiveMap extends Component {
     let geoJsonSources = []
     let treeLayers = []
 
-    console.log(treeLayers)
-    // console.log(geoJsonSources)
-
     let treeMap = () => {
       trees.map( (tree) => {
         let treeObj = {...allTrees[tree]}
-        // console.log([treeObj.long, treeObj.lat]);
+        // could also store treeObj.height etc
         coordinatesArray.push([treeObj.long, treeObj.lat])
-        // console.log(coordinatesArray)
       })
     }
 
     let treeMaker = () => {
       coordinatesArray.forEach( (latlong, index) => {
-        // console.log([parseFloat(latlong[0]), parseFloat(latlong[1])])
         let newCoordinates = [parseFloat(latlong[0]), parseFloat(latlong[1])]
         let options = {name: 'Circle'};
         let treeCircle = turf.point(newCoordinates, options);
-        // console.log(treeCircle)
         let geoJSON =  <Sources> <GeoJSON key={ index } id={ index.toString() } data={ treeCircle } /> </Sources>
         geoJsonSources.push(geoJSON)
 
@@ -54,23 +48,14 @@ class InteractiveMap extends Component {
       [bounding.left, bounding.top]
     ]], { name: 'Bounding Area' });
 
-    let coordinates = [-123.18727286009813, 49.38710261999775]
-    let coordinates2 = [-123.18463152343836, 49.38604381672198]
-    // let options = {name: 'Circle'};
-
-    let treeFeature = turf.point( coordinates );
-    let treeFeature2 = turf.point( coordinates2 );
 
     treeMap();
     treeMaker();
-
+    // there is a way to simplify treeMap and treeMaker into one function, or not have a function at all and simply do these mappings directly inside the return function and return the Source and Layer jsx objects
     return (
       <Map { ...this.props }>
           <Sources>
             <GeoJSON id="bounding-box" data={ boundingFeature } />
-            <GeoJSON id="tree-object" data={ treeFeature } />
-            <GeoJSON id="tree-object2" data={ treeFeature2 } />
-            {/* { {...geoJsonSources} } */}
           </Sources>
           { geoJsonSources.map( (geojsontree, index) => {
             // console.log(geojsontree.props.children[1])
@@ -79,28 +64,6 @@ class InteractiveMap extends Component {
           { treeLayers.map( (tree) => {
             return [tree]
           })}
-        <Layer
-          id="treeCircle"
-          type="circle"
-          paint={{
-            'circle-radius': 5,
-            'circle-color': 'white',
-            'circle-stroke-color': 'black',
-            'circle-opacity': 0.8,
-          }}
-          source="tree-object"
-        />
-        <Layer
-          id="treeCircle2"
-          type="circle"
-          paint={{
-            'circle-radius': 5,
-            'circle-color': 'white',
-            'circle-stroke-color': 'black',
-            'circle-opacity': 0.8,
-          }}
-          source="tree-object2"
-        />
         <Layer
           id="bounding-box"
           type="line"
