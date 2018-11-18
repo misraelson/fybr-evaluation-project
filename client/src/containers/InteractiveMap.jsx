@@ -12,7 +12,6 @@ class InteractiveMap extends Component {
     const { bounding } = this.props.currentSite;
     const { trees } = this.props.currentSite
     const allTrees = {...this.props.trees};
-    // let { height, lat, long, type } = allTrees
     let treeProperties = []
     let geoJsonSources = []
     let treeLayers = []
@@ -21,7 +20,6 @@ class InteractiveMap extends Component {
     let treeMap = () => {
       trees.map( (tree) => {
         let treeObj = {...allTrees[tree]}
-        // could also store treeObj.height etc
         treeProperties.push([treeObj.long, treeObj.lat, treeObj.height, treeObj.id])
       })
     }
@@ -30,13 +28,12 @@ class InteractiveMap extends Component {
       treeProperties.forEach( (property, index) => {
         let newCoordinates = [parseFloat(property[0]), parseFloat(property[1])];
         let treeColor = interpolatedColorArray.find((color, index) => index === property[2])
+        let color = ("rgb(" + treeColor[0] + "," + treeColor[1] + "," + treeColor[2] + ")")
         let options = {name: 'Circle'};
         let treeCircle = turf.point(newCoordinates, options);
+
         let geoJSON =  <Sources> <GeoJSON key={ index } id={ index.toString() } data={ treeCircle } /> </Sources>
         geoJsonSources.push(geoJSON)
-        let color = ("rgb(" + treeColor[0] + "," + treeColor[1] + "," + treeColor[2] + ")")
-        console.log(color)
-        let altcolor = ('rgb(192,217,192)')
 
         let treeLayer =   <Layer key={index} id={ index.toString() } type="circle" paint={{'circle-radius': 5, 'circle-color': color, 'circle-stroke-color': 'black', 'circle-opacity': 1,}}
           source={geoJSON.props.children[1].props.id}
@@ -44,7 +41,7 @@ class InteractiveMap extends Component {
         treeLayers.push(treeLayer)
       })
     };
-
+    // pulled the following interpolate functions from here: https://graphicdesign.stackexchange.com/questions/83866/generating-a-series-of-colors-between-two-colors
     function interpolateColor(color1, color2, factor) {
       if (arguments.length < 3) {
           factor = 0.5;
@@ -65,8 +62,6 @@ class InteractiveMap extends Component {
       }
     }
 
-    interpolateColors("rgb(255,255,255)", "rgb(0,100,0)", 70);
-    console.log(treeProperties);
 
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
@@ -76,7 +71,8 @@ class InteractiveMap extends Component {
       [bounding.left, bounding.top]
     ]], { name: 'Bounding Area' });
 
-
+    // the order of these function calls matters
+    interpolateColors("rgb(255,255,255)", "rgb(0,100,0)", 70);
     treeMap();
     treeMaker();
     // there is a way to simplify treeMap and treeMaker into one function, or not have a function at all and simply do these mappings directly inside the return function and return the Source and Layer jsx objects
