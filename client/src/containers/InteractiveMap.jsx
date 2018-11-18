@@ -40,6 +40,30 @@ class InteractiveMap extends Component {
       })
     };
 
+    let interpolatedColorArray = [];
+    function interpolateColor(color1, color2, factor) {
+      if (arguments.length < 3) {
+          factor = 0.5;
+      }
+      var result = color1.slice();
+      for (var i = 0; i < 3; i++) {
+          result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+      }
+      return result;
+    };
+    function interpolateColors(color1, color2, steps) {
+      var stepFactor = 1 / (steps - 1),
+      color1 = color1.match(/\d+/g).map(Number);
+      color2 = color2.match(/\d+/g).map(Number);
+
+      for(var i = 0; i < steps; i++) {
+        interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
+      }
+    }
+
+    interpolateColors("rgb(255,255,255)", "rgb(0,100,0)", 70);
+    console.log(interpolatedColorArray[1][0]);
+
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
       [bounding.right, bounding.top],
