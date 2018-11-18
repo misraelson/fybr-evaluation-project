@@ -13,34 +13,38 @@ class InteractiveMap extends Component {
     const { trees } = this.props.currentSite
     const allTrees = {...this.props.trees};
     // let { height, lat, long, type } = allTrees
-    let coordinatesArray = []
+    let treeProperties = []
     let geoJsonSources = []
     let treeLayers = []
+    let interpolatedColorArray = [];
 
     let treeMap = () => {
       trees.map( (tree) => {
         let treeObj = {...allTrees[tree]}
         // could also store treeObj.height etc
-        coordinatesArray.push([treeObj.long, treeObj.lat])
+        treeProperties.push([treeObj.long, treeObj.lat, treeObj.height, treeObj.id])
       })
     }
 
     let treeMaker = () => {
-      coordinatesArray.forEach( (latlong, index) => {
-        let newCoordinates = [parseFloat(latlong[0]), parseFloat(latlong[1])]
+      treeProperties.forEach( (property, index) => {
+        let newCoordinates = [parseFloat(property[0]), parseFloat(property[1])];
+        let treeColor = interpolatedColorArray.find((color, index) => index === property[2])
         let options = {name: 'Circle'};
         let treeCircle = turf.point(newCoordinates, options);
         let geoJSON =  <Sources> <GeoJSON key={ index } id={ index.toString() } data={ treeCircle } /> </Sources>
         geoJsonSources.push(geoJSON)
+        let color = ("rgb(" + treeColor[0] + "," + treeColor[1] + "," + treeColor[2] + ")")
+        console.log(color)
+        let altcolor = ('rgb(192,217,192)')
 
-        let treeLayer =   <Layer key={index} id={ index.toString() } type="circle" paint={{'circle-radius': 5, 'circle-color': 'white', 'circle-stroke-color': 'black', 'circle-opacity': 0.8,}}
+        let treeLayer =   <Layer key={index} id={ index.toString() } type="circle" paint={{'circle-radius': 5, 'circle-color': color, 'circle-stroke-color': 'black', 'circle-opacity': 1,}}
           source={geoJSON.props.children[1].props.id}
         />
         treeLayers.push(treeLayer)
       })
     };
 
-    let interpolatedColorArray = [];
     function interpolateColor(color1, color2, factor) {
       if (arguments.length < 3) {
           factor = 0.5;
@@ -62,7 +66,7 @@ class InteractiveMap extends Component {
     }
 
     interpolateColors("rgb(255,255,255)", "rgb(0,100,0)", 70);
-    console.log(interpolatedColorArray[1][0]);
+    console.log(treeProperties);
 
     const boundingFeature = turf.polygon([[
       [bounding.left, bounding.top],
@@ -103,7 +107,7 @@ class InteractiveMap extends Component {
           type="fill"
           paint={{
             'fill-color': 'grey',
-            'fill-opacity': 0.5,
+            'fill-opacity': 0.3,
           }}
           source="bounding-box"
         />
