@@ -11,15 +11,7 @@ class Chart extends Component {
       labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
       datasets:[
         {
-          data:[
-            5,
-            20,
-            30,
-            40,
-            50,
-            30,
-            20
-          ],
+          data:[],
           backgroundColor: 'rgba(49, 211, 177, 0.8)',
         }
       ],
@@ -83,12 +75,30 @@ class Chart extends Component {
         sixtySeventy.push(treeHeight)
       }
     });
-    console.log(sixtySeventy.length);
-    // this.setState( (prevState) => {
-    //   chartData: {datasets:[{data:[
-    //     // new data
-    //   ]}]}
-    // })
+    // console.log({...this.state.chartData.datasets});
+    let dataSet = {...this.state.chartData.datasets}
+    let newData = dataSet[0].data
+    newData = [
+      oneTen.length,
+      tenTwenty.length,
+      twentyThirty.length,
+      thirtyForty.length,
+      fortyFifty.length,
+      fiftySixty.length,
+      sixtySeventy.length,
+    ];
+    console.log(newData)
+    this.setState({
+      chartData: {
+        labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
+        datasets:[
+          {
+            data: newData,
+            backgroundColor: 'rgba(49, 211, 177, 0.8)',
+          }
+        ],
+      }
+    })
   }
 
   render() {
