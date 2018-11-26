@@ -18,14 +18,15 @@ class InteractiveMap extends Component {
     let interpolatedColorArray = [];
 
     // 1. simplify treeMap and treeMaker into one function (DONE) => 2. try to have the method appar in the return function
+    // if I could change redux so that tree items get passed in the currentSite props would be much easier
     let treeCircleMaker = () => {
-      trees.map( (tree) => {
-        let treeObj = {...allTrees[tree]}
-        let newCoordinates = [parseFloat(treeObj.long), parseFloat(treeObj.lat)];
+      trees.map( (treeID) => {
+        // this maps an individial tree object to an object in allTrees found by the index of the id found in trees
+        let treeObj = {...allTrees[treeID]}
         let treeColor = interpolatedColorArray.find((color, index) => index === treeObj.height)
         let color = ("rgb(" + treeColor[0] + "," + treeColor[1] + "," + treeColor[2] + ")")
         let options = {name: 'Tree Circle'};
-        let treeCircle = turf.point(newCoordinates, options);
+        let treeCircle = turf.point([treeObj.long, treeObj.lat], options);
 
         let geoJSON =  <Sources> <GeoJSON key={ treeObj.id } id={ treeObj.id.toString() } data={ treeCircle } /> </Sources>
         geoJsonSources.push(geoJSON)
@@ -67,12 +68,8 @@ class InteractiveMap extends Component {
     ]], { name: 'Bounding Area' });
 
     // the order of these function calls matters
-    //
     interpolateColors("rgb(255,255,255)", "rgb(0,100,0)", 70);
-    // treeMap();
-    // treeMaker();
     treeCircleMaker();
-    // there is a way to simplify treeMap and treeMaker into one function, or not have a function at all and simply do these mappings directly inside the return function and return the Source and Layer jsx objects
     // getting an error logged to console when changing between sights and is related to this post:
     // https://github.com/alex3165/react-mapbox-gl/pull/500
     // https://github.com/alex3165/react-mapbox-gl/pull/530
