@@ -51,9 +51,39 @@ class Chart extends Component {
   getTreeSize = () => {
     // map through TREES and seperate into groups accroding to height
     const allTrees = {...this.props.trees};
+    const oneTen = []
+    const tenTwenty = []
+    const twentyThirty = []
+    const thirtyForty = []
+    const fortyFifty = []
+    const fiftySixty = []
+    const sixtySeventy = []
     Object.keys(allTrees).map( (key, index) => {
-      console.log(allTrees[key].height);
+      // console.log(allTrees[key].height);
+      let treeHeight = allTrees[key].height
+      if(treeHeight < 10) {
+        oneTen.push(treeHeight)
+      }
+      if(20 > treeHeight && treeHeight > 10) {
+        tenTwenty.push(treeHeight)
+      }
+      if(30 > treeHeight && treeHeight > 20) {
+        twentyThirty.push(treeHeight)
+      }
+      if(40 > treeHeight && treeHeight > 30) {
+        thirtyForty.push(treeHeight)
+      }
+      if(50 > treeHeight && treeHeight > 40) {
+        fortyFifty.push(treeHeight)
+      }
+      if(60 > treeHeight && treeHeight > 50) {
+        fiftySixty.push(treeHeight)
+      }
+      if(70 > treeHeight && treeHeight > 60) {
+        sixtySeventy.push(treeHeight)
+      }
     });
+    console.log(sixtySeventy.length);
     // this.setState( (prevState) => {
     //   chartData: {datasets:[{data:[
     //     // new data
