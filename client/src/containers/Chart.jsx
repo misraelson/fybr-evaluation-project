@@ -1,15 +1,42 @@
 import React, { Component } from 'react';
 import { GradientDarkgreenGreen } from '@vx/gradient';
+import {Bar} from 'react-chartjs-2';
 
 class Chart extends Component {
   state = {
     width: 0,
-    height: 0
+    height: 0,
+    chartData: {
+      labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
+      datasets:[
+        {
+          label: 'Tree Heights',
+          data:[
+            0,
+            20,
+            30,
+            40,
+            50,
+            30,
+            20
+          ],
+          backgroundColor:[
+            'green',
+            'red',
+            'blue',
+            'purple',
+            'yellow',
+            'black',
+            'white',
+          ]
+        }
+      ]
+    }
   };
 
   componentDidMount() {
     window.addEventListener('resize', this.setSize);
-    
+
     this.setSize();
   }
 
@@ -30,7 +57,7 @@ class Chart extends Component {
 
   render() {
     const { width, height } = this.state;
-    
+
     /* This is a hack to first set the size based on percentage
        then query for the size so the chart can be scaled to the window size.
        The second render is caused by componentDidMount(). */
@@ -39,7 +66,8 @@ class Chart extends Component {
     }
 
     return (
-      <svg ref={ this.setRef } width={'100%'} height={'100%'}>
+      <div className='chart'>
+      {/* <svg ref={ this.setRef } width={'100%'} height={'100%'}>
         <GradientDarkgreenGreen id="gradient" />
         <rect
           x={0}
@@ -48,7 +76,17 @@ class Chart extends Component {
           height={height}
           fill={`url(#gradient)`}
         />
-      </svg>
+
+      </svg> */}
+      <Bar
+        data={this.state.chartData}
+        width={width}
+        height={height}
+        options={{
+          // maintainAspectRatio: false,
+        }}
+      />
+      </div>
     );
   }
 }
