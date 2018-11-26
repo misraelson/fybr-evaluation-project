@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { GradientDarkgreenGreen } from '@vx/gradient';
 import {Bar} from 'react-chartjs-2';
 
@@ -10,7 +11,6 @@ class Chart extends Component {
       labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
       datasets:[
         {
-          // label: 'Tree Heights',
           data:[
             5,
             20,
@@ -21,9 +21,6 @@ class Chart extends Component {
             20
           ],
           backgroundColor: 'rgba(49, 211, 177, 0.8)',
-          // backgroundColor:[
-          //   'rgba(49, 211, 177, 0.2)',
-          // ],
         }
       ],
     }
@@ -48,6 +45,16 @@ class Chart extends Component {
 
   setRef = (node) => {
     this.chart = node;
+  }
+
+  getTreeSize = () => {
+    // map through TREES and seperate into groups accroding to height
+    const allTrees = {...this.props.trees};
+    this.setState( (prevState) => {
+      chartData: {datasets:[{data:[
+        // new data
+      ]}]}
+    })
   }
 
   render() {
@@ -97,4 +104,10 @@ class Chart extends Component {
   }
 }
 
-export default Chart;
+function mapStateToProps(state) {
+  return {
+    trees: state.trees.byId,
+  };
+}
+
+export default connect(mapStateToProps)(Chart);;
