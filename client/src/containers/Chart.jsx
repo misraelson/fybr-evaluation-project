@@ -30,6 +30,7 @@ class Chart extends Component {
     window.addEventListener('resize', this.setSize);
 
     this.setSize();
+    this.getTreeSize();
   }
 
   setSize = (event) => {
@@ -50,11 +51,14 @@ class Chart extends Component {
   getTreeSize = () => {
     // map through TREES and seperate into groups accroding to height
     const allTrees = {...this.props.trees};
-    this.setState( (prevState) => {
-      chartData: {datasets:[{data:[
-        // new data
-      ]}]}
-    })
+    Object.keys(allTrees).map( (key, index) => {
+      console.log(allTrees[key].height);
+    });
+    // this.setState( (prevState) => {
+    //   chartData: {datasets:[{data:[
+    //     // new data
+    //   ]}]}
+    // })
   }
 
   render() {
