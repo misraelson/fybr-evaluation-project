@@ -17,6 +17,11 @@
 }
 
 .bottom {
-  grid-column: 2; 
+  grid-column: 2;
   overflow: hidden;
+  // background-color: black;
+  background-image: linear-gradient(to top, rgb(78,192,139), rgb(25,87,130));
+}
+
+.bar-chart {
 }

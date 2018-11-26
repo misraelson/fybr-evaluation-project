@@ -61,7 +61,7 @@ class Chart extends Component {
     }
 
     return (
-      <div className='chart'>
+      <div className='bar-chart'>
       {/* <svg ref={ this.setRef } width={'100%'} height={'100%'}>
         <GradientDarkgreenGreen id="gradient" />
         <rect
@@ -73,25 +73,25 @@ class Chart extends Component {
         />
 
       </svg> */}
-      <Bar
-        data={this.state.chartData}
-        width={width}
-        height={height}
-        options={{
-          maintainAspectRatio: false,
-          responsive: true,
-          legend:{
-            display:false,
-          },
-          scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-          },
-        }}
-      />
+        <Bar
+          data={this.state.chartData}
+          width={width}
+          height={height}
+          options={{
+            maintainAspectRatio: false,
+            responsive: true,
+            legend:{
+              display:false,
+            },
+            scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+            },
+          }}
+        />
       </div>
     );
   }
