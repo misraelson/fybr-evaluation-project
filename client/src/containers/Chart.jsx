@@ -10,9 +10,9 @@ class Chart extends Component {
       labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
       datasets:[
         {
-          label: 'Tree Heights',
+          // label: 'Tree Heights',
           data:[
-            0,
+            5,
             20,
             30,
             40,
@@ -20,17 +20,12 @@ class Chart extends Component {
             30,
             20
           ],
-          backgroundColor:[
-            'green',
-            'red',
-            'blue',
-            'purple',
-            'yellow',
-            'black',
-            'white',
-          ]
+          backgroundColor: 'rgba(49, 211, 177, 0.8)',
+          // backgroundColor:[
+          //   'rgba(49, 211, 177, 0.2)',
+          // ],
         }
-      ]
+      ],
     }
   };
 
@@ -83,7 +78,18 @@ class Chart extends Component {
         width={width}
         height={height}
         options={{
-          // maintainAspectRatio: false,
+          maintainAspectRatio: false,
+          responsive: true,
+          legend:{
+            display:false,
+          },
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+          },
         }}
       />
       </div>
