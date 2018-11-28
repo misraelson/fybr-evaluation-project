@@ -1,5 +1,5 @@
 
-![](FYBR_GIPHY.gif)
+![](FYBR-GIPHY.gif)
 
 ## Progress Thus Far
 
