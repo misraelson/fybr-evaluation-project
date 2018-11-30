@@ -8,11 +8,11 @@ class Chart extends Component {
     width: 0,
     height: 0,
     chartData: {
-      labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
+      labels: [],
       datasets:[
         {
           data:[],
-          backgroundColor: 'rgba(49, 211, 177, 0.8)',
+          backgroundColor: '',
         }
       ],
     }
@@ -22,7 +22,7 @@ class Chart extends Component {
     window.addEventListener('resize', this.setSize);
 
     this.setSize();
-    this.getTreeSize();
+    this.setTreeSize();
   }
 
   setSize = (event) => {
@@ -40,8 +40,8 @@ class Chart extends Component {
     this.chart = node;
   }
 
-  getTreeSize = () => {
-    // map through TREES and seperate into groups accroding to height
+  setTreeSize = () => {
+    // map through TREES and seperate into groups according to height
     const allTrees = {...this.props.trees};
     const oneTen = []
     const tenTwenty = []
@@ -50,7 +50,7 @@ class Chart extends Component {
     const fortyFifty = []
     const fiftySixty = []
     const sixtySeventy = []
-    Object.keys(allTrees).map( (key, index) => {
+    Object.keys(allTrees).map( (key) => {
       // console.log(allTrees[key].height);
       let treeHeight = allTrees[key].height
       if(treeHeight < 10) {
@@ -75,7 +75,6 @@ class Chart extends Component {
         sixtySeventy.push(treeHeight)
       }
     });
-    // console.log({...this.state.chartData.datasets});
     let dataSet = {...this.state.chartData.datasets}
     let newData = dataSet[0].data
     newData = [
@@ -87,14 +86,15 @@ class Chart extends Component {
       fiftySixty.length,
       sixtySeventy.length,
     ];
-    console.log(newData)
+    let labels = ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',];
+    let backgroundColor = 'rgba(49, 211, 177, 0.8)'
     this.setState({
       chartData: {
-        labels: ['0m - 10m', '10m - 20m', '20m - 30m', '30m - 40m', '40m - 50m', '50m - 60m', '60m - 70m',],
+        labels: labels,
         datasets:[
           {
             data: newData,
-            backgroundColor: 'rgba(49, 211, 177, 0.8)',
+            backgroundColor: backgroundColor,
           }
         ],
       }
@@ -113,17 +113,6 @@ class Chart extends Component {
 
     return (
       <div className='bar-chart'>
-      {/* <svg ref={ this.setRef } width={'100%'} height={'100%'}>
-        <GradientDarkgreenGreen id="gradient" />
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={`url(#gradient)`}
-        />
-
-      </svg> */}
         <Bar
           data={this.state.chartData}
           width={width}
